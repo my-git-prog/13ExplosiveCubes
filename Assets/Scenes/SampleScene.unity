@@ -270,8 +270,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 10, z: 1}
-  m_Center: {x: 0, y: 5, z: -5}
+  m_Size: {x: 10, y: 100, z: 1}
+  m_Center: {x: 0, y: 50, z: -5}
 --- !u!65 &818028947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -291,8 +291,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 10, z: 1}
-  m_Center: {x: 0, y: 5, z: 5}
+  m_Size: {x: 10, y: 100, z: 1}
+  m_Center: {x: 0, y: 50, z: 5}
 --- !u!65 &818028948
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -312,8 +312,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 10, z: 10}
-  m_Center: {x: -5, y: 5, z: 0}
+  m_Size: {x: 1, y: 100, z: 10}
+  m_Center: {x: -5, y: 50, z: 0}
 --- !u!65 &818028949
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -333,8 +333,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 10, z: 10}
-  m_Center: {x: 5, y: 5, z: 0}
+  m_Size: {x: 1, y: 100, z: 10}
+  m_Center: {x: 5, y: 50, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +461,9 @@ MonoBehaviour:
   _startCubesCount: 3
   _minSubCubesCount: 2
   _maxSubCubesCount: 6
+  _startSplitChance: 1
+  _startExplosionRadius: 2.5
+  _startExplosionForce: 150
 --- !u!4 &1257836708
 Transform:
   m_ObjectHideFlags: 0
