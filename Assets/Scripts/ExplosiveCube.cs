@@ -8,16 +8,13 @@ public class ExplosiveCube : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
 
     private float _splitChance = 1f;
-    public event UnityAction<float> Split;
+    public event UnityAction<ExplosiveCube> Clicked;
+
+    public float SplitChance => _splitChance;
 
     private void OnMouseUpAsButton()
     {
-        if(Random.value <= _splitChance)
-        {
-            Split.Invoke(_splitChance);
-        }
-
-        Destroy(gameObject);
+        Clicked.Invoke(this);
     }
 
     public void Initialize(Vector3 scale, Vector3 forceDirection, float splitChance)
@@ -27,4 +24,8 @@ public class ExplosiveCube : MonoBehaviour
         _splitChance = splitChance;
     }
 
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 }
