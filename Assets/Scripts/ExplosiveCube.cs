@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ExplosiveCube : MonoBehaviour
@@ -10,15 +10,20 @@ public class ExplosiveCube : MonoBehaviour
     private float _splitChance = 1f;
     private float _explosionRadius;
     private float _explosionForce;
-    public event UnityAction<ExplosiveCube> Clicked;
-
-    public float SplitChance => _splitChance;
-    public float ExplosionRadius => _explosionRadius;
-    public float ExplosionForce => _explosionForce;
+    public event Action<Vector3, Vector3, float, float, float> Splitting;
 
     private void OnMouseUpAsButton()
     {
-        Clicked.Invoke(this);
+        if (UnityEngine.Random.value <= _splitChance)
+        {
+            Splitting?.Invoke(transform.position, transform.localScale, _splitChance, _explosionRadius, _explosionForce);
+        }
+        else
+        {
+            Explode();
+        }
+
+        Destroy(gameObject);
     }
 
     public void Initialize(Vector3 scale, Vector3 forceDirection, float splitChance, float explosionRadius, float explosionForce)
@@ -30,12 +35,7 @@ public class ExplosiveCube : MonoBehaviour
         _rigidbody.AddForce(forceDirection * _explosionForce);
     }
 
-    public void Destroy()
-    {
-        Destroy(gameObject);
-    }
-
-    public void Explode()
+    private void Explode()
     {
         foreach(Rigidbody explodableObject in GetExplodableObjects())
         {
@@ -46,7 +46,6 @@ public class ExplosiveCube : MonoBehaviour
     private List<Rigidbody> GetExplodableObjects()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
-
         List<Rigidbody> cubes = new();
 
         foreach (Collider hit in hits)
