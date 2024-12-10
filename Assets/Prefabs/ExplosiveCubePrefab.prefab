@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8893896637720250213}
   - component: {fileID: 111389971747067532}
   - component: {fileID: 2544916863465502418}
+  - component: {fileID: 4359567984823947298}
+  - component: {fileID: 4248679270098196641}
   m_Layer: 0
   m_Name: ExplosiveCubePrefab
   m_TagString: Untagged
@@ -148,6 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 8893896637720250213}
+  _exploder: {fileID: 4359567984823947298}
+  clicker: {fileID: 4248679270098196641}
 --- !u!114 &2544916863465502418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,5 +162,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8609f3d4d939526489e59851f3563193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4359567984823947298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152176193411635354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3483dcf035a62341b3a4e1ecb2d054a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4248679270098196641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152176193411635354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756b14f1bda29e14a86412aaafbfdbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

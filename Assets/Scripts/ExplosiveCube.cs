@@ -1,59 +1,60 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Exploder))]
+[RequireComponent(typeof(Clicker))]
 public class ExplosiveCube : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Exploder _exploder;
+    [SerializeField] private Clicker clicker;
 
     private float _splitChance = 1f;
     private float _explosionRadius;
     private float _explosionForce;
-    public event Action<Vector3, Vector3, float, float, float> Splitting;
+    public event Action<ExplosiveCube> Splitting;
+    public event Action<ExplosiveCube> Exploding;
 
-    private void OnMouseUpAsButton()
+    public float SplitChance => _splitChance;
+    public float ExplosionRadius => _explosionRadius;
+    public float ExplosionForce => _explosionForce;
+
+    private void OnEnable()
+    {
+        clicker.Clicked += Explode;
+    }
+
+    private void OnDisable()
+    {
+        clicker.Clicked -= Explode;
+    }
+
+    private void Explode()
     {
         if (UnityEngine.Random.value <= _splitChance)
         {
-            Splitting?.Invoke(transform.position, transform.localScale, _splitChance, _explosionRadius, _explosionForce);
+            Splitting?.Invoke(this);
         }
         else
         {
-            Explode();
+            Exploding?.Invoke(this);
+            _exploder.Explode(_explosionRadius, _explosionForce);
         }
 
         Destroy(gameObject);
     }
 
-    public void Initialize(Vector3 scale, Vector3 forceDirection, float splitChance, float explosionRadius, float explosionForce)
+    public void Initialize(Vector3 scale, float splitChance, float explosionRadius, float explosionForce)
     {
         transform.localScale = scale;
         _splitChance = splitChance;
         _explosionRadius = explosionRadius;
         _explosionForce = explosionForce;
+    }
+
+    public void AddForce(Vector3 forceDirection)
+    {
         _rigidbody.AddForce(forceDirection * _explosionForce);
-    }
-
-    private void Explode()
-    {
-        foreach(Rigidbody explodableObject in GetExplodableObjects())
-        {
-            explodableObject.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
-        }
-    }
-
-    private List<Rigidbody> GetExplodableObjects()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
-        List<Rigidbody> cubes = new();
-
-        foreach (Collider hit in hits)
-        {
-            if(hit.attachedRigidbody != null)
-                cubes.Add(hit.attachedRigidbody);
-        }
-
-        return cubes;
     }
 }
